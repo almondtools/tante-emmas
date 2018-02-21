@@ -147,7 +147,7 @@
 
 * The missing part is input
 * As you learned testrecorder stores the state before and after execution of the recorded method
-* Sometimes a method does not only depend on state in the JVM but state originating from foreign systems, e.g.
+* Sometimes a method does not only depend on state in the JVM but state originating from external systems, e.g.
   * time
   * random
   * reading files (that could have been edited)
@@ -156,7 +156,7 @@
 
 ----
 
-* Since input sources are foreign to the JVM the only option to include input is to mock it
+* Since input sources are external to the JVM the only option to include input is to mock it
 * There are two ways to give testrecorder a hint which methods provide input and have to be mocked
   * Annotate the input methods with `@Input`
   * Or adjust the `AgentConfig`s method `getInputs`
@@ -198,7 +198,7 @@
 
 * The missing part is output
 * As you learned testrecorder stores the state before and after execution of the recorded method
-* Sometimes a method does write state to foreign systems, e.g.
+* Sometimes a method does write state to external systems, e.g.
   * writing files (that could have been edited)
   * requesting user input
   * notifying web services
@@ -206,9 +206,9 @@
 
 ----
 
-* Since output sinks are foreign to the JVM the only option to include output is to mock it and to verify the outputs
+* Since output sinks are external to the JVM the only option to include output is to mock it and to verify the outputs
 * There are two ways to give testrecorder a hint which methods consume output and have to be mocked
-  * Annotate the input methods with `@Output`
+  * Annotate the output methods with `@Output`
   * Or adjust the `AgentConfig`s method `getOutputs`
   * Note that each argument of a tagged method is recorded and verified later on
 * So find the output method and tag it
