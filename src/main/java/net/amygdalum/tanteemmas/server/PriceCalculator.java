@@ -43,53 +43,48 @@ public class PriceCalculator {
 		}
 		boolean netPrice = customer.name.equals("Gerd Grosskunde");
 		boolean fairPrice = computeFairPrice(customer);
-		if (!fairPrice) {
-			Daytime daytime = daytimeSource.getDaytime();
-			Date date = dateSource.getDate();
-			Weather weather = weatherSource.getWeather();
-
-			price = applyUnfairCharges(price, product, daytime, date, weather);
-		}
-		if (((Boolean) product.getOrDefault("bad circumstances", false)).booleanValue()) {
-			price = price.multiply(BigDecimal.valueOf(102, 2));
-		}
+		Daytime daytime = daytimeSource.getDaytime();
+		Date date = dateSource.getDate();
+		Weather weather = weatherSource.getWeather();
+		price = applyUnfairCharges(fairPrice, price, product, daytime, date, weather);
 		if (netPrice) {
 			price = price.divide(BigDecimal.valueOf(119, 2), RoundingMode.HALF_UP);
 		}
 		return price.setScale(2, RoundingMode.HALF_UP);
 	}
 
-	public BigDecimal applyUnfairCharges(BigDecimal price, Map<String, Object> product, Daytime daytime, Date date, Weather weather) {
-		@SuppressWarnings("unchecked")
-		Set<String> categories = (Set<String>) product.getOrDefault("categories", emptySet());
-		if (categories.contains("rainwear")
-			&& (weather.getPrecipitation().equals(Precipitation.DRIZZLE)
-				|| weather.getPrecipitation().equals(Precipitation.RAIN))
-			|| date.getSeason() == Season.FALL) {
-			price = price.multiply(BigDecimal.valueOf(102, 2));
-			product.put("bad circumstances", true);
-		}
-		if (weather.getWind() == Wind.STORM
-			|| weather.getTemperature() == Temperature.FREEZING
-			|| weather.getPrecipitation() == Precipitation.RAIN) {
-			product.put("bad circumstances", true);
-		}
-		if (categories.contains("summercollection")
-			&& (date.getSeason() == Season.SUMMER)) {
-			price = price.multiply(BigDecimal.valueOf(105, 2));
-		}
-		if (date.getWeekday() == Weekday.SATURDAY || date.getWeekday() == Weekday.SUNDAY) {
-			price = price.multiply(BigDecimal.valueOf(103, 2));
-		}
-		if (daytime == Daytime.MORNING || daytime == Daytime.EVENING) {
-			price = price.multiply(BigDecimal.valueOf(101, 2));
-		}
-		if (customer.debt.compareTo(BigDecimal.ZERO) > 0) {
-			if (categories.contains("spirits")) {
-				price = price.multiply(BigDecimal.valueOf(99, 2));
-			} else {
+	public BigDecimal applyUnfairCharges(boolean fairPrice, BigDecimal price, Map<String, Object> product, Daytime daytime, Date date, Weather weather) {
+		if (!fairPrice) {
+			@SuppressWarnings("unchecked")
+			Set<String> categories = (Set<String>) product.getOrDefault("categories", emptySet());
+			if (categories.contains("rainwear")
+					&& (weather.getPrecipitation().equals(Precipitation.DRIZZLE) || weather.getPrecipitation().equals(Precipitation.RAIN))
+					|| date.getSeason() == Season.FALL) {
+				price = price.multiply(BigDecimal.valueOf(102, 2));
+				product.put("bad circumstances", true);
+			}
+			if (weather.getWind() == Wind.STORM || weather.getTemperature() == Temperature.FREEZING || weather.getPrecipitation() == Precipitation.RAIN) {
+				product.put("bad circumstances", true);
+			}
+			if (categories.contains("summercollection") && (date.getSeason() == Season.SUMMER)) {
+				price = price.multiply(BigDecimal.valueOf(105, 2));
+			}
+			if (date.getWeekday() == Weekday.SATURDAY || date.getWeekday() == Weekday.SUNDAY) {
+				price = price.multiply(BigDecimal.valueOf(103, 2));
+			}
+			if (daytime == Daytime.MORNING || daytime == Daytime.EVENING) {
 				price = price.multiply(BigDecimal.valueOf(101, 2));
 			}
+			if (customer.debt.compareTo(BigDecimal.ZERO) > 0) {
+				if (categories.contains("spirits")) {
+					price = price.multiply(BigDecimal.valueOf(99, 2));
+				} else {
+					price = price.multiply(BigDecimal.valueOf(101, 2));
+				}
+			}
+		}
+		if (((Boolean) product.getOrDefault("bad circumstances", false)).booleanValue()) {
+			price = price.multiply(BigDecimal.valueOf(102, 2));
 		}
 		return price;
 	}
