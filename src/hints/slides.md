@@ -17,13 +17,13 @@
 
 * The sources are available
   * as clone from https://github.com/almondtools/tante-emmas.git
-  * as project from the provided USB stick
+  * as project from the provided USB drive
 * The workshop script (tasks.pdf) is available
   * in the src/hints directory
-  * or as additional file from the provided USB-stick
+  * or as additional file from the provided USB drive
 * There are two different setups
   * install the project from maven `mvn clean install -Poffline`
-  * or copy all depedencies from the provided USB stick 
+  * or copy all dependencies from the provided USB drive 
 
 ---
 
@@ -100,7 +100,7 @@
 ## Special Features
   * exceptions are recorded in a special way
   * testrecorder uses existing constructors and setters
-  * testrecorder does not rely on common conventions (setters, that do completely other things are not considered)
+  * testrecorder does not rely on common conventions (set-methods that are no plain setters are not considered)
 
 ---
 
@@ -128,7 +128,7 @@
 ## 15 min
 
 * Most state influencing method behavior is available as state of variables
-* Yet there is state the is read while executing the method - we call this input dependencies 
+* Yet there is state that is read while executing the method - we call this input dependencies 
 * Annotate `PriceCalculator.computePrice` with `@Recorded`
 * Start the launch script and browse to http://localhost:8080
 * Follow the instructions in your workshop script 
@@ -179,7 +179,7 @@
 * Once generated we could change and refactor tests
 * Some other tests will probably break, yet they give you valuable insights about the recorded methods
 * There are different strategies how to handle generated tests if a bug was fixed
-  * fixing all tests that fail to the new behavior (with a critical view whether the changes in behavior are ok)
+  * fixing all tests that fail to the new behavior (with a sharp eye whether the changes in behavior are ok)
   * repeating the recording with new behavior
   * rerunning the generated tests with testrecorder (generating tests from tests, yet input/output is not captured in this case)
 
@@ -206,7 +206,7 @@
 
 ## State of Development
 
-  * api will be quite volatile a long while
+  * API will be quite volatile a long while
   * there are some hard objects that are not yet supported (especially native state or concurrency state)
   * there are probably some scenarios that do not work yet (please report them)
 
