@@ -27,6 +27,48 @@
 
 ---
 
+# What is Legacy Code?
+
+* Usually few (if any) automated tests
+* Contains uncontrolled side effects
+  * e.g. on arguments or global variables
+* Is not really object-oriented
+  * ignores patterns
+  * uses generic types like maps instead of writing classes
+  * classes used as structs (data without logic)
+* No stringent exception handling
+  * e.g. both runtime and checked, inconsistent logging, ...
+
+----
+
+# How can we work with it?
+
+* Refactor?
+  * but code is untested, prone to errors
+* Write tests first?
+  * but you don't understand what the code is (supposed to be) doing
+  * if you do, the code is hardly testable
+* Characterization tests to the rescue!
+  * but it's a tiresome and uninteresting task
+  * timeconsuming and error prone
+
+----
+
+# Enter: testrecorder
+
+* Testrecorder takes on the repetitious part of characterization tests
+  * **Record** for each function
+    * its pre state
+    * and post state
+  * **Refactor**
+    * your task as the developer
+    * now with generated tests as a safety net
+  * **Replay**
+    * Establish the state prior to execution of each function
+    * Compare its resulting state with that previously recorded 
+
+---
+
 # Get Familiar
 ## 10 min
 
