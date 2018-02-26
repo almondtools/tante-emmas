@@ -24,7 +24,7 @@ java
 * Stop the previous server (Vert.x) before starting a new server (you will possibly not recognize that you run on an old server session)
 * Save all tests you want to keep. Each recorder session will replace existing files
 * Delete all tests before starting a new server. Otherwise you cannot distinguish old recorded and new recorded files
-* Read the javadocs for the used annotations. They will give you further hints you to accomplish succesful recordings
+* Read the javadocs for the used annotations. They will give you further hints on how to accomplish succesful recordings
 * Do not rely on few tests, about 100 tests will produce an acceptable coverage  
 
 ---
