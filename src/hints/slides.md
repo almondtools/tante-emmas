@@ -7,26 +7,6 @@
 
 ---
 
-# Setup
-
-* Java 8 (JDK) is required, ensure that your IDE uses the JDK and not the bundled JRE
-* Most IDEs support JUnit4 and JUnit5 but testrecorder generated tests are yet JUnit4-only
-* Some nasty IDEs do not allow editing and searching in generated/derived sources without further configuration
-
-----
-
-* The sources are available
-  * as clone from https://github.com/almondtools/tante-emmas.git
-  * as project from the provided USB drive
-* The workshop script (tasks.pdf) is available
-  * in the src/hints directory
-  * or as additional file from the provided USB drive
-* There are two different setups
-  * install the project from maven `mvn clean install -Poffline`
-  * or copy all dependencies from the provided USB drive 
-
----
-
 # What is Legacy Code?
 
 * Usually few (if any) automated tests
@@ -66,6 +46,26 @@
   * **Replay**
     * Establish the state prior to execution of each function
     * Compare its resulting state with that previously recorded 
+
+---
+
+# Setup
+
+* Java 8 (JDK) is required, ensure that your IDE uses the JDK and not the bundled JRE
+* Most IDEs support JUnit4 and JUnit5 but testrecorder generated tests are still JUnit4-only
+* Some nasty IDEs do not allow editing and searching in generated/derived sources without further configuration
+
+----
+
+* The sources are available
+  * as clone from https://github.com/almondtools/tante-emmas.git
+  * as project from the provided USB drive
+* The workshop script (lessons.pdf) is available
+  * in the src/hints directory
+  * or as additional file from the provided USB drive
+* There are two different setups
+  * install the project from maven `mvn clean install -Poffline`
+  * or copy all dependencies from the provided USB drive 
 
 ---
 

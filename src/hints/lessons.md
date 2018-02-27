@@ -33,7 +33,6 @@ java
 ## 10 min
 
 * Put testrecorder-0.3.12-jar-with-dependencies.jar in your workspace
-* Add testrecorder-0.3.12-jar-with-dependencies.jar to your class path
 * Put `AgentConfig.java` (located in src/hints) in the package `net.amygdalum.tanteemmas.testrecorder` in your src/main/java folder 
 * Try to understand the configuration in `AgentConfig.java`
 
