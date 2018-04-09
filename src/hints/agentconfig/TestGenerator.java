@@ -2,7 +2,7 @@ package net.amygdalum.tanteemmas.testrecorder;
 
 import java.nio.file.Paths;
 
-import net.amygdalum.testrecorder.ScheduledTestGenerator;
+import net.amygdalum.testrecorder.generator.ScheduledTestGenerator;
 import net.amygdalum.testrecorder.profile.AgentConfiguration;
 
 public class TestGenerator extends ScheduledTestGenerator {
