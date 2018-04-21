@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>net.amygdalum</groupId>
 			<artifactId>testrecorder-agent</artifactId>
-			<version>0.5.0</version>
+			<version>0.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.almondtools</groupId>
@@ -97,7 +97,7 @@
 				<dependency>
 					<groupId>net.amygdalum</groupId>
 					<artifactId>testrecorder-agent</artifactId>
-					<version>0.5.0</version>
+					<version>0.6.0</version>
 					<classifier>agent</classifier>
 				</dependency>
 			</dependencies>
