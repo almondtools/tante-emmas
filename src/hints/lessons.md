@@ -7,9 +7,7 @@
   * other: 
 
 ```Bash
-java 
-  -cp [classpath] 
-  io.vertx.core.Launcher run net.amygdalum.tanteemmas.server.Server
+java -cp [classpath] net.amygdalum.tanteemmas.server.Server
 ```
 
 * Browse to http://localhost:8080
@@ -52,7 +50,7 @@ java
 java
   -cp [classpath]
   -javaagent:testrecorder-0.3.12-jar-with-dependencies.jar=net.amygdalum.tanteemmas.testrecorder.AgentConfig
-  io.vertx.core.Launcher run net.amygdalum.tanteemmas.server.Server
+  net.amygdalum.tanteemmas.server.Server
 ```
 
 ----

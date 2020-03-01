@@ -9,12 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.templ.HandlebarsTemplateEngine;
-import io.vertx.ext.web.templ.TemplateEngine;
+import io.vertx.ext.web.common.template.TemplateEngine;
+import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 import net.amygdalum.tanteemmas.external.SimulatedDateSource;
 import net.amygdalum.tanteemmas.external.SimulatedDaytimeSource;
 import net.amygdalum.tanteemmas.external.SimulatedWeatherSource;
@@ -35,7 +36,6 @@ public class Server extends AbstractVerticle {
 	private WeatherSource weather;
 
 	public Server() {
-		engine = HandlebarsTemplateEngine.create().setExtension("html");
 		products = new ProductRepo().init();
 		customers = new CustomerRepo().init();
 		time = new TimeProvider();
@@ -44,8 +44,10 @@ public class Server extends AbstractVerticle {
 		weather = new SimulatedWeatherSource(time, date);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void start() {
 		Router router = Router.router(vertx);
+		engine = HandlebarsTemplateEngine.create(vertx).setExtension("html");
 		router.route("/speed/:speed").handler(this::speed);
 		router.route("/login").handler(this::login);
 		router.route("/logout").handler(this::logout);
@@ -56,7 +58,12 @@ public class Server extends AbstractVerticle {
 		router.route().handler(this::show);
 
 		HttpServer server = vertx.createHttpServer();
-		server.requestHandler(router::accept).listen(8080);
+		server.requestHandler(router).listen(8080);
+	}
+
+	public static void main(String[] args) {
+		Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new Server());
 	}
 
 	public void speed(RoutingContext context) {
@@ -115,10 +122,10 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void show(RoutingContext context) {
-		context.data().put("date",date.getDate());
-		context.data().put("daytime",daytime.getDaytime());
-		context.data().put("weather",weather.getWeather());
-		
+		context.data().put("date", date.getDate());
+		context.data().put("daytime", daytime.getDaytime());
+		context.data().put("weather", weather.getWeather());
+
 		if (PriceCalculator.customer == null) {
 			context.reroute("/showLogin");
 		} else {
@@ -132,7 +139,7 @@ public class Server extends AbstractVerticle {
 		context.data().put("decspeed", time.getSpeed() / 10);
 		context.data().put("user", PriceCalculator.customer.name);
 
-		engine.render(context, "src/main/resources/index.html", res -> {
+		engine.render(context.data(), "src/main/resources/index.html", res -> {
 			if (res.succeeded()) {
 				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
 			} else {
@@ -142,7 +149,7 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void showLogin(RoutingContext context) {
-		engine.render(context, "src/main/resources/login.html", res -> {
+		engine.render(context.data(), "src/main/resources/login.html", res -> {
 			if (res.succeeded()) {
 				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
 			} else {

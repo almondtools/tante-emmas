@@ -77,7 +77,7 @@
     * intellij: tante_emmas.xml -> .idea/runConfigurations
     * other: 
     ```Bash
-    java -cp [classpath] io.vertx.core.Launcher run net.amygdalum.tanteemmas.server.Server
+    java -cp [classpath] net.amygdalum.tanteemmas.server.Server
     ```
 * Browse to http://localhost:8080
 * Navigate through the application
@@ -113,7 +113,7 @@
     java
       -cp [classpath]
       -javaagent:[...]
-      io.vertx.core.Launcher run net.amygdalum.tanteemmas.server.Server
+      net.amygdalum.tanteemmas.server.Server
     ```
 * Follow the instructions in the workshop script
 
