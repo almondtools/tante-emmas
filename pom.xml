@@ -98,7 +98,7 @@
 				<dependency>
 					<groupId>net.amygdalum</groupId>
 					<artifactId>testrecorder-agent</artifactId>
-					<version>0.10.1</version>
+					<version>0.10.3</version>
 					<classifier>agent</classifier>
 				</dependency>
 			</dependencies>
